@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<!-- 
+  PENJELASAN:
+  Sama seperti index.html, baris ini memberitahu browser bahwa ini dokumen HTML5.
+  WAJIB ada di baris pertama setiap file HTML.
+-->
+
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Otot Dada | Panduan Latihan &mdash; GymPedia</title>
+  <!-- 
+    PENJELASAN:
+    Judul tab diubah jadi "Otot Dada | Panduan Latihan — GymPedia".
+    Tanda | (pipe) biasa dipakai untuk memisahkan judul halaman dan nama web.
+    Ini membantu user tahu "halaman apa yang sedang dibuka" di tab browser.
+  -->
+
+  <link rel="stylesheet" href="css/style.css">
+  <!-- 
+    PENJELASAN:
+    Sambungan ke file CSS yang SAMA (style.css).
+    Kenapa pakai file yang sama? Supaya SEMUA halaman punya tampilan seragam.
+    Bayangin: semua halaman pakai seragam sekolah yang sama. Rapi dan konsisten.
+  -->
+</head>
+
+<body>
+
+  <!-- ==================== NAVIGASI (SAMA PERSIS DENGAN INDEX) ==================== -->
+  <nav class="navbar">
+    <div class="logo">💪 <span>GymPedia</span></div>
+    <button class="menu-toggle" id="menuBtn">☰ Menu</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="dada.html" class="active">Dada</a></li>
+      <!-- 
+        PENJELASAN:
+        Di halaman Dada, class="active" dipindah ke link "Dada".
+        Ini memberitahu CSS: "Hei, yang sedang dibuka adalah halaman Dada, 
+        jadi warnai link Dada dengan warna berbeda (biasanya lebih terang/bold)."
+      -->
+      <li><a href="punggung.html">Punggung</a></li>
+      <li><a href="bahu.html">Bahu</a></li>
+      <li><a href="lengan.html">Lengan</a></li>
+      <li><a href="kaki.html">Kaki</a></li>
+      <li><a href="perut.html">Perut</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==================== BAGIAN 1: JUDUL HALAMAN ==================== -->
+  <header class="page-header">
+    <!-- 
+      PENJELASAN:
+      class="page-header" beda dengan class="hero" di index.html.
+      - hero = header besar dengan gambar latar/background.
+      - page-header = header sederhana untuk halaman dalam (tidak perlu terlalu besar).
+      Tapi keduanya pakai tag <header>.
+    -->
+    <h1>Otot Dada <span class="latin">(Pectoralis)</span></h1>
+    <!-- 
+      PENJELASAN:
+      <span class="latin"> = membungkus nama latin otot.
+      Di CSS nanti, nama latin bisa di-style miring (italic) dan warna abu-abu.
+      Ini membedakan nama umum (Otot Dada) dengan nama ilmiah (Pectoralis).
+    -->
+    <p class="breadcrumb">
+      <!-- 
+        PENJELASAN:
+        class="breadcrumb" = jejak roti (istilah navigasi).
+        Biasanya format: Beranda > Kategori > Halaman Ini.
+        Membantu user tahu "di mana posisi saya sekarang?" dan mudah kembali.
+      -->
+      <a href="index.html">Beranda</a> &rsaquo; <span>Dada</span>
+      <!-- 
+        PENJELASAN:
+        &rsaquo; = simbol panah kecil (›). 
+        Bedanya dengan &mdash;: &rsaquo; lebih kecil dan biasa untuk breadcrumb.
+        <span>Dada</span> tanpa <a> karena ini halaman yang sedang dibuka (nggak perlu diklik).
+      -->
+    </p>
+  </header>
+
+  <!-- ==================== BAGIAN 2: KONTEN UTAMA ==================== -->
+  <main class="container">
+
+    <!-- --- SUB BAGIAN 2A: CARA KERJA OTOT --- -->
+    <section class="section-cara-kerja">
+      <!-- 
+        PENJELASAN:
+        <section> = tag untuk membagi konten menjadi BAGIAN/SEKSI logis.
+        Setiap <section> sebaiknya punya heading (h2, h3, dst) sebagai judulnya.
+        class="section-cara-kerja" = label CSS untuk bagian penjelasan cara kerja.
+      -->
+
+      <h2>⚙️ Cara Kerja Otot Dada</h2>
+      <!-- 
+        PENJELASAN:
+        Emoji ⚙️ (gear) di awal judul = visual cue (petunjuk visual) bahwa ini tentang mekanisme/kerja.
+        Bisa diganti dengan emoji lain atau dihapus kalau nggak suka.
+      -->
+
+      <div class="anatomi-box">
+        <!-- 
+          PENJELASAN:
+          <div class="anatomi-box"> = kotak khusus untuk penjelasan anatomi.
+          Di CSS bisa dibikin ada border, background berwarna, atau bayangan halus.
+        -->
+        <h3>Fungsi Utama</h3>
+        <ul>
+          <!-- 
+            PENJELASAN:
+            <ul> = Unordered List (daftar tanpa nomor).
+            Tiap item pakai <li> (List Item).
+            Cocok untuk poin-poin yang urutannya nggak penting.
+          -->
+          <li><strong>Mendorong (Push):</strong> Menolak benda menjauh dari tubuh. Contoh: mendorong pintu, push up.</li>
+          <!-- 
+            PENJELASAN:
+            <strong> = teks TEBAL (bold). Fungsi: menekankan kata/kalimat penting.
+            Bedanya <strong> vs <b>:
+            - <strong> = teks yang PENTING SECARA MAKNA (dibaca screen reader dengan penekanan).
+            - <b> = teks yang tebal saja tanpa makna khusus (visual saja).
+            Rekomendasi: pakai <strong> untuk penekanan makna.
+          -->
+          <li><strong>Memeluk (Adduction):</strong> Membawa lengan mendekati garis tengah tubuh. Contoh: cable fly, bear hug.</li>
+          <li><strong>Rotasi Internal:</strong> Memutar lengan ke dalam (mengarah ke perut).</li>
+        </ul>
+
+        <h3>Bagian-Bagian Otot Dada</h3>
+        <p>Otot dada manusia dibagi menjadi 2 bagian utama:</p>
+
+        <ol>
+          <!-- 
+            PENJELASAN:
+            <ol> = "Ordered List" (daftar BERURUTAN/BERNOMOR).
+            Bedanya dengan <ul>: <ol> otomatis kasih angka 1, 2, 3 di depan tiap item.
+            Cocok untuk urutan yang penting (step-by-step, ranking, dll).
+          -->
+          <li>
+            <strong>Pectoralis Major (Bagian Atas / Clavicular):</strong>
+            <!-- 
+              PENJELASAN:
+              <br> = "break" (pemisah baris). Fungsi: turun ke baris baru TANPA membuat paragraf baru.
+              Bedanya <br> vs <p>:
+              - <br> = cuma turun baris, jaraknya rapat.
+              - <p> = paragraf baru, ada jarak atas-bawah (margin).
+            -->
+            Menyambung ke tulang selangka (clavicle). <br>
+            Fungsi: mengangkat lengan ke atas (shoulder flexion) dan mendorong ke atas. <br>
+            Gerakan target: <em>Incline press, incline fly</em>.
+            <!-- 
+              PENJELASAN:
+              <em> = "emphasis" (penekanan). Secara default tampil MIRING (italic).
+              Bedanya <em> vs <i>:
+              - <em> = penekanan makna (screen reader membacanya dengan intonasi beda).
+              - <i> = miring saja tanpa makna khusus (visual saja).
+              Di sini <em> dipakai untuk nama gerakan karena itu istilah khusus.
+            -->
+          </li>
+          <li>
+            <strong>Pectoralis Major (Bagian Bawah / Sternal):</strong> <br>
+            Menyambung ke tulang dada (sternum) dan tulang rusuk. <br>
+            Fungsi: mendorong ke bawah dan ke depan. <br>
+            Gerakan target: <em>Flat bench press, decline press, dips</em>.
+          </li>
+          <li>
+            <strong>Pectoralis Minor:</strong> <br>
+            Otot kecil di BAWAH pectoralis major. <br>
+            Fungsi: menarik tulang scapula ke depan dan ke bawah. <br>
+            Dilatih secara tidak langsung melalui gerakan dada lainnya.
+          </li>
+        </ol>
+      </div>
+
+      <!-- GAMBAR ANATOMI (PLACEHOLDER) -->
+      <figure class="anatomi-gambar">
+        <!-- 
+          PENJELASAN:
+          <figure> = tag khusus untuk membungkus GAMBAR + KETERANGANNYA.
+          Ini memberitahu browser: "Hei, gambar dan teks di dalam ini adalah satu kesatuan."
+          Biasanya dipakai untuk: foto artikel, diagram, grafik, ilustrasi.
+        -->
+        <img src="images/otot/dada.png" alt="Ilustrasi anatomi otot dada manusia">
+        <!-- 
+          PENJELASAN:
+          <img> = tag untuk menampilkan GAMBAR.
+          src="images/otot/dada.png" = lokasi file gambar.
+            - "images/" = masuk folder "images".
+            - "otot/" = masuk sub-folder "otot".
+            - "dada.png" = nama file gambar.
+          alt="..." = teks ALTERNATIF. Fungsinya:
+            1. Kalau gambar gagal load, yang muncul adalah teks ini.
+            2. Screen reader (bagi tunanetra) akan membacakan teks ini.
+            3. Google membaca alt text untuk SEO gambar.
+          WAJIB diisi dengan deskripsi yang JELAS, bukan cuma "gambar".
+        -->
+        <figcaption>
+          <!-- 
+            PENJELASAN:
+            <figcaption> = keterangan/caption untuk gambar di dalam <figure>.
+            Biasanya di bawah gambar, berisi penjelasan singkat.
+          -->
+          Gambar 1: Anatomi otot dada (Pectoralis Major & Minor).
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- --- SUB BAGIAN 2B: DAFTAR GERAKAN (TABEL) --- -->
+    <section class="section-gerakan">
+      <h2>📋 Daftar Gerakan Latihan</h2>
+
+      <div class="table-wrapper">
+        <!-- 
+          PENJELASAN:
+          <div class="table-wrapper"> = pembungkus tabel.
+          Fungsinya: kalau tabel terlalu lebar di HP, wrapper ini bisa di-scroll 
+          secara horizontal tanpa merusak tampilan seluruh halaman.
+          Ini trik responsif untuk tabel.
+        -->
+
+        <table class="tabel-gerakan">
+          <!-- 
+            PENJELASAN:
+            <table> = tag untuk membuat TABEL.
+            Struktur tabel HTML:
+            - <thead> = kepala tabel (judul kolom, biasanya tebal dan berwarna).
+            - <tbody> = badan tabel (isi data).
+            - <tr> = "Table Row" (baris tabel).
+            - <th> = "Table Header" (sel judul/kolom, teks tebal, biasanya di <thead>).
+            - <td> = "Table Data" (sel biasa, isi data normal).
+          -->
+
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Gerakan</th>
+              <th>Target</th>
+              <th>Level</th>
+              <th>Alat</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><a href="#gerakan-1">Push Up</a></td>
+              <!-- 
+                PENJELASAN:
+                Link di dalam tabel: <a href="#gerakan-1"> = klik nama gerakan akan scroll 
+                ke bagian detail gerakan di bawah (di dalam halaman yang sama).
+              -->
+              <td>Seluruh dada</td>
+              <td><span class="badge pemula">Pemula</span></td>
+              <!-- 
+                PENJELASAN:
+                <span class="badge pemula"> = label kecil (badge) berwarna.
+                class "badge" = bentuk dasar badge (rounded, padding kecil).
+                class "pemula" = warna spesifik (misal: hijau untuk pemula).
+                Di CSS nanti: .badge.pemula { background-color: hijau; }
+              -->
+              <td>Berat badan</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><a href="#gerakan-2">Bench Press</a></td>
+              <td>Seluruh dada</td>
+              <td><span class="badge menengah">Menengah</span></td>
+              <td>Barbell / Dumbbell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><a href="#gerakan-3">Incline Dumbbell Press</a></td>
+              <td>Bagian atas</td>
+              <td><span class="badge menengah">Menengah</span></td>
+              <td>Dumbbell + Bench miring</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><a href="#gerakan-4">Cable Fly</a></td>
+              <td>Bagian tengah & dalam</td>
+              <td><span class="badge lanjut">Lanjut</span></td>
+              <td>Kabel (Cable Machine)</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><a href="#gerakan-5">Dips</a></td>
+              <td>Bagian bawah</td>
+              <td><span class="badge menengah">Menengah</span></td>
+              <td>Parallel Bars / Bangku</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- --- SUB BAGIAN 2C: DETAIL TIAP GERAKAN (CARD) --- -->
+    <section class="section-detail">
+      <h2>🔍 Detail Gerakan</h2>
+      <!-- 
+        PENJELASAN:
+        Di sini, tiap gerakan dibuat dalam "kotak" (card) terpisah.
+        ID di tiap card = target dari link di tabel di atas.
+      -->
+
+      <!-- CARD 1: PUSH UP -->
+      <article class="detail-card" id="gerakan-1">
+        <!-- 
+          PENJELASAN:
+          <article> = tag untuk konten yang MANDIRI/MEMBENTUK SATU ARTIKEL LENGKAP.
+          Bedanya <article> vs <section>:
+          - <section> = bagian dari keseluruhan (bisa nggak berdiri sendiri).
+          - <article> = bisa berdiri sendiri (kalau di-copy ke web lain, masih make sense).
+          Tiap gerakan di sini adalah "artikel mini" yang lengkap.
+        -->
+        <div class="detail-header">
+          <h3>1. Push Up</h3>
+          <span class="badge pemula">Pemula</span>
+        </div>
+
+        <div class="detail-grid">
+          <!-- 
+            PENJELASAN:
+            class="detail-grid" = grid 2 kolom: kiri untuk gambar, kanan untuk teks.
+            Di HP nanti jadi 1 kolom (responsif).
+          -->
+
+          <div class="detail-gambar">
+            <img src="images/otot/pushup.png" alt="Ilustrasi gerakan push up yang benar">
+            <p class="gambar-caption">Posisi tubuh lurus dari kepala hingga tumit.</p>
+          </div>
+
+          <div class="detail-isi">
+            <h4>🎯 Target Otot</h4>
+            <!-- 
+              PENJELASAN:
+              <h4> = Heading 4. Levelnya di bawah h3.
+              Urutan: h1 > h2 > h3 > h4. Jangan loncat!
+            -->
+            <p>Pectoralis major (seluruh bagian), anterior deltoid (bahu depan), triceps (lengan belakang).</p>
+
+            <h4>📖 Cara Melakukan</h4>
+            <ol class="langkah">
+              <li>Mulai posisi <strong>plank</strong>: tangan di lantai selebar bahu, tubuh lurus seperti papan.</li>
+              <li>Turunkan badan dengan menekuk siku, siku mengarah ke belakang (bukan ke samping).</li>
+              <li>Dada mendekati lantai, tapi jangan sampai menyentuh (range of motion penuh).</li>
+              <li>Dorong tubuh kembali ke atas sampai siku lurus (jangan kunci siku).</li>
+              <li>Ulangi sesuai repetisi target.</li>
+            </ol>
+
+            <h4>⚠️ Kesalahan Umum</h4>
+            <ul class="kesalahan">
+              <li>Pinggul turun/naik (tubuh nggak lurus).</li>
+              <li>Siku terlalu lebar (bukan 45 derajat).</li>
+              <li>Hanya turun sedikit (nggak full range).</li>
+              <li>Kepala menjulur ke depan (leher tegang).</li>
+            </ul>
+
+            <h4>💡 Tips</h4>
+            <div class="tips-box">
+              <p>Kalau masih terlalu berat, lakukan <strong>push up dari lutut</strong> atau <strong>push up di dinding</strong>. Jangan malu! Progress itu penting.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 2: BENCH PRESS -->
+      <article class="detail-card" id="gerakan-2">
+        <div class="detail-header">
+          <h3>2. Bench Press</h3>
+          <span class="badge menengah">Menengah</span>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-gambar">
+            <img src="images/otot/benchpress.png" alt="Ilustrasi gerakan bench press">
+            <p class="gambar-caption">Barbell diturunkan ke bagian tengah-tengah dada.</p>
+          </div>
+          <div class="detail-isi">
+            <h4>🎯 Target Otot</h4>
+            <p>Pectoralis major (sternal/head), anterior deltoid, triceps.</p>
+
+            <h4>📖 Cara Melakukan</h4>
+            <ol class="langkah">
+              <li>Baring di bench datar, mata tepat di bawah barbell.</li>
+              <li>Genggam bar selebar bahu atau sedikit lebih lebar.</li>
+              <li>Keluarkan bar dari rack, tahan di atas dada dengan siku lurus (jangan kunci).</li>
+              <li>Turunkan bar perlahan ke bagian tengah dada (sekitar puting).</li>
+              <li>Siku membentuk sudut ~75 derajat dari tubuh (bukan 90 derajat).</li>
+              <li>Dorong bar ke atas sampai siku hampir lurus.</li>
+            </ol>
+
+            <h4>⚠️ Kesalahan Umum</h4>
+            <ul class="kesalahan">
+              <li>Bar turun terlalu tinggi (ke leher) = bahaya bahu.</li>
+              <li>Siku terlalu lebar (90 derajat) = bahaya rotator cuff.</li>
+              <li>Kaki mengangkang di udara = nggak stabil.</li>
+              <li>Bounce di dada = cheating + bahaya.</li>
+            </ul>
+
+            <h4>💡 Tips</h4>
+            <div class="tips-box">
+              <p>Jaga <strong>scapula retraction</strong> (tulang belikat ditarik ke dalam dan ke bawah). Ini melindungi bahu dan memaksimalkan aktivasi dada.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 3: INCLINE DUMBBELL PRESS -->
+      <article class="detail-card" id="gerakan-3">
+        <div class="detail-header">
+          <h3>3. Incline Dumbbell Press</h3>
+          <span class="badge menengah">Menengah</span>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-gambar">
+            <img src="images/otot/incline.png" alt="Ilustrasi incline dumbbell press">
+            <p class="gambar-caption">Bench diatur miring 30-45 derajat.</p>
+          </div>
+          <div class="detail-isi">
+            <h4>🎯 Target Otot</h4>
+            <p>Pectoralis major (clavicular head / bagian atas), anterior deltoid.</p>
+
+            <h4>📖 Cara Melakukan</h4>
+            <ol class="langkah">
+              <li>Atur bench miring 30&ndash;45 derajat (bukan 60-90, itu terlalu bahu).</li>
+              <li>Duduk, sandaran punggung ke bench, pegang dumbbell di atas paha.</li>
+              <li>Tendang dumbbell ke atas 1 per 1, posisikan di samping dada atas.</li>
+              <li>Dorong dumbbell ke atas dengan telapak tangan menghadap depan (neutral grip boleh juga).</li>
+              <li>Turunkan perlahan sampai dumbbell di samping dada atas, siku membentuk sudut 90 derajat.</li>
+              <li>Dorong kembali ke atas.</li>
+            </ol>
+
+            <h4>⚠️ Kesalahan Umum</h4>
+            <ul class="kesalahan">
+              <li>Sudut bench terlalu tinggi (>45°) = jadi latihan bahu, bukan dada.</li>
+              <li>Dumbbell bertabrakan di atas = kontrol kurang.</li>
+              <li>Punggung melengkung (terangkat dari bench) = nggak stabil + bahaya punggung.</li>
+            </ul>
+
+            <h4>💡 Tips</h4>
+            <div class="tips-box">
+              <p>Sudut <strong>30 derajat</strong> terbukti paling optimal untuk aktivasi upper chest menurut penelitian EMG. Jangan terlalu tinggi!</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 4: CABLE FLY -->
+      <article class="detail-card" id="gerakan-4">
+        <div class="detail-header">
+          <h3>4. Cable Fly</h3>
+          <span class="badge lanjut">Lanjut</span>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-gambar">
+            <img src="images/otot/cablefly.png" alt="Ilustrasi cable fly">
+            <p class="gambar-caption">Gerakan seperti "memeluk pohon".</p>
+          </div>
+          <div class="detail-isi">
+            <h4>🎯 Target Otot</h4>
+            <p>Pectoralis major (sternal head), terutama bagian tengah/dalam dada.</p>
+
+            <h4>📖 Cara Melakukan</h4>
+            <ol class="langkah">
+              <li>Atur kabel di posisi ATAS (high to low fly) untuk target bawah/tengah, atau TENGAH untuk target tengah.</li>
+              <li>Ambil handle kabel, berdiri di tengah mesin, langkahkan 1 kaki ke depan untuk stabil.</li>
+              <li>Siku sedikit ditekuk (jangan lurus, jangan terlalu tekuk).</li>
+              <li>Buka lengan ke samping sampai merasa stretch di dada (jangan terlalu lebar = bahaya bahu).</li>
+              <li>Bawa lengan ke depan dan ke bawah seperti "memeluk pohon besar".</li>
+              <li>Bayangkan jari-jari kamu menyatu di depan dada. Kencangkan dada di titik puncak.</li>
+            </ol>
+
+            <h4>⚠️ Kesalahan Umum</h4>
+            <ul class="kesalahan">
+              <li>Menggunakan beban terlalu berat = jadi press, bukan fly.</li>
+              <li>Siku lurus = tekanan ke siku, bukan dada.</li>
+              <li>Buka terlalu lebar = bahu anterior terlalu stretch, risiko cedera.</li>
+              <li>Nggak kencangkan dada di puncak = aktivasi kurang maksimal.</li>
+            </ul>
+
+            <h4>💡 Tips</h4>
+            <div class="tips-box">
+              <p>Cable fly adalah gerakan <strong>ISOLASI</strong>, bukan beban berat. Gunakan beban ringan-menengah dengan fokus pada <strong>mind-muscle connection</strong> (rasakan dada bekerja).</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 5: DIPS -->
+      <article class="detail-card" id="gerakan-5">
+        <div class="detail-header">
+          <h3>5. Dips</h3>
+          <span class="badge menengah">Menengah</span>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-gambar">
+            <img src="images/otot/dips.png" alt="Ilustrasi gerakan dips">
+            <p class="gambar-caption">Tubuh dimiringkan ke depan untuk fokus dada.</p>
+          </div>
+          <div class="detail-isi">
+            <h4>🎯 Target Otot</h4>
+            <p>Pectoralis major (lower/sternal head), anterior deltoid, triceps.</p>
+
+            <h4>📖 Cara Melakukan</h4>
+            <ol class="langkah">
+              <li>Pegang parallel bars, angkat tubuh sampai siku lurus.</li>
+              <li>Miringkan tubuh ke DEPAN (sekitar 30 derajat). Ini MEMBEDAKAN dips dada vs dips triceps.</li>
+              <li>Turunkan tubuh dengan menekuk siku, dada sedikit mengembang ke depan.</li>
+              <li>Turun sampai siku membentuk sudut 90 derajat (atau sedikit lebih dalam kalau aman).</li>
+              <li>Dorong tubuh ke atas, bayangkan menyatukan siku ke arah tubuh (bukan ke belakang).</li>
+            </ol>
+
+            <h4>⚠️ Kesalahan Umum</h4>
+            <ul class="kesalahan">
+              <li>Tubuh tegak lurus = target jadi triceps, bukan dada.</li>
+              <li>Turun terlalu dalam = bahaya bahu (terutama kalau fleksibilitas bahu kurang).</li>
+              <li>Bahu naik ke telinga (shrug) = bahaya rotator cuff.</li>
+              <li>Kaki diayun-ayun = momentum, bukan otot yang kerja.</li>
+            </ul>
+
+            <h4>💡 Tips</h4>
+            <div class="tips-box">
+              <p>Kalau masih terlalu berat, gunakan <strong>assisted dip machine</strong> atau minta teman bantu angkat kaki. Jangan pakai kursi/bangku di bawah karena mengubah biomekanik.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- --- SUB BAGIAN 2D: NAVIGASI ANTAR HALAMAN OTOT --- -->
+    <section class="section-navigasi">
+      <h2>🧭 Lanjut ke Otot Lain</h2>
+      <div class="nav-otot">
+        <a href="perut.html" class="nav-prev">← Sebelumnya: Perut</a>
+        <!-- 
+          PENJELASAN:
+          "Sebelumnya" di sini = Perut. Kenapa? Karena urutan di menu: Dada, Punggung, Bahu, Lengan, Kaki, Perut.
+          Jadi sebelum Dada (di urutan melingkar) = Perut. Sesudah Dada = Punggung.
+          Ini opsional, bisa diubah sesuai logika urutan yang lu mau.
+        -->
+        <a href="punggung.html" class="nav-next">Selanjutnya: Punggung →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <p> GymPedia &mdash; Koran Digital Panduan Otot.</p>
+    <p><a href="index.html">← Kembali ke Beranda</a></p>
+    <!-- 
+      PENJELASAN:
+      Link "Kembali ke Beranda" di footer membantu user kalau sudah scroll jauh ke bawah 
+      dan males scroll ke atas lagi cuma buat klik menu.
+    -->
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

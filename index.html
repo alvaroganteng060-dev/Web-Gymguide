@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<!-- 
+  PENJELASAN: 
+  Baris di atas ini namanya "DOCTYPE". Fungsinya memberitahu browser:
+  "Hei, ini adalah dokumen HTML versi 5 (yang terbaru dan paling umum)". 
+  Tanpa baris ini, browser bisa bingung cara nampilinnya.
+-->
+
+<html lang="id">
+<!-- 
+  PENJELASAN:
+  Tag <html> ini ibarat "kotak paling luar" yang membungkus SEMUA isi web.
+  Atribut lang="id" memberitahu browser bahwa bahasa isinya adalah Bahasa Indonesia.
+  Semua tag HTML lain HARUS berada di DALAM tag ini.
+-->
+
+<head>
+  <!-- 
+    PENJELASAN:
+    Tag <head> ibarat "amplop" atau "surat pengantar". 
+    Isinya BUKAN konten yang kelihatan di halaman web, 
+    tapi informasi PENTING untuk browser (judul tab, link file CSS, dll).
+    User (pengunjung) nggak lihat isi <head> secara langsung.
+  -->
+
+  <meta charset="UTF-8">
+  <!-- 
+    PENJELASAN:
+    charset="UTF-8" = memberitahu browser cara membaca huruf.
+    UTF-8 mendukung huruf Indonesia (seperti: é, ñ, dan karakter khusus).
+    Tanpa ini, huruf "é" di "Café" bisa jadi kotak-kotak aneh.
+  -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 
+    PENJELASAN:
+    Ini SANGAT PENTING untuk HP. Fungsinya:
+    "Browser, tolong sesuaikan lebar web sama lebar layar HP-nya ya!"
+    Tanpa ini, web di HP akan terlihat kecil dan harus di-zoom manual.
+    width=device-width = lebar web = lebar layar HP.
+    initial-scale=1.0 = zoom awal = normal (tidak diperbesar/diperkecil).
+  -->
+
+  <title>Panduan Latihan Otot | Koran Digital</title>
+  <!-- 
+    PENJELASAN:
+    <title> = teks yang muncul di TAB browser dan di bookmark.
+    Ini bukan judul yang besar di dalam halaman, tapi judul di TAB.
+    Ganti teks di dalamnya sesuka hati.
+  -->
+
+  <link rel="stylesheet" href="css/style.css">
+  <!-- 
+    PENJELASAN:
+    <link> = menyambungkan file LAIN ke file HTML ini.
+    rel="stylesheet" = jenis file yang disambung adalah "file makeup/style" (CSS).
+    href="css/style.css" = LOKASI file CSS-nya. 
+    "css/" = masuk folder bernama "css", "style.css" = nama filenya.
+    Analogi: ini kayak lu kasih alamat ke tukang cat, "Pak, cat rumah saya pakai warna di file ini ya."
+  -->
+</head>
+
+<body>
+  <!-- 
+    PENJELASAN:
+    Tag <body> = KOTAK ISI. Semua yang kelihatan di layar pengunjung ADA DI SINI.
+    Teks, gambar, tombol, tabel, video, SEMUANYA di dalam <body>.
+    Analogi: <head> itu amplop, <body> itu suratnya yang dibaca orang.
+  -->
+
+  <!-- ==================== BAGIAN 1: NAVIGASI ATAS ==================== -->
+  <nav class="navbar">
+    <!-- 
+      PENJELASAN:
+      <nav> = tag khusus untuk area NAVIGASI (menu, link, tombol pindah halaman).
+      class="navbar" = nama julukan (label) yang bisa dipakai di CSS untuk dihias.
+      "navbar" singkatan dari "navigation bar" (batang navigasi).
+    -->
+
+    <div class="logo">
+      <!-- 
+        PENJELASAN:
+        <div> = "division" (pembagian). Ibarat kotak kosong yang bisa diisi apa saja.
+        Ini adalah kotak untuk menampung logo/judul web.
+        class="logo" = label supaya CSS bisa tahu "kotak ini isinya logo".
+      -->
+      💪 <span>GymPedia</span>
+      <!-- 
+        PENJELASAN:
+        💪 = emoji otot. Bisa langsung ditulis di HTML, nggak perlu gambar.
+        <span> = kotak kecil (inline) untuk membungkus sebagian teks saja.
+        Bedanya <div> (kotak besar, turun baris baru) vs <span> (kotak kecil, tetap di baris yang sama).
+      -->
+    </div>
+
+    <button class="menu-toggle" id="menuBtn">☰ Menu</button>
+    <!-- 
+      PENJELASAN:
+      <button> = tombol yang bisa diklik.
+      id="menuBtn" = ID unik (KTP). 1 halaman cuma boleh ada 1 ID dengan nama sama.
+      ID dipakai JavaScript untuk menangkap tombol ini ("Hei JS, tombol yang ID-nya menuBtn itu lho!").
+      ☰ = simbol 3 garis (hamburger menu), biasa untuk tampilan HP.
+    -->
+
+    <ul class="nav-links" id="navLinks">
+      <!-- 
+        PENJELASAN:
+        <ul> = "Unordered List" (daftar tanpa nomor/urutan). Ibarat daftar belanjaan.
+        <li> di dalamnya = tiap item daftar.
+        class="nav-links" = label CSS.
+        id="navLinks" = ID untuk JavaScript (nanti tombol Menu akan nyembunyiin/tampilin ini).
+      -->
+      <li><a href="index.html" class="active">Beranda</a></li>
+      <!-- 
+        PENJELASAN:
+        <li> = "List Item" (satu barang dalam daftar).
+        <a> = "anchor" (jangkar). Fungsinya: MEMBUAT LINK/TAUTAN.
+        href="index.html" = tujuan link. Kalau diklik, browser buka file "index.html".
+        class="active" = class khusus untuk menandai "halaman ini yang sedang dibuka".
+        Di CSS nanti, link yang "active" bisa diwarnai beda (misal: biru tua).
+      -->
+      <li><a href="dada.html">Dada</a></li>
+      <li><a href="punggung.html">Punggung</a></li>
+      <li><a href="bahu.html">Bahu</a></li>
+      <li><a href="lengan.html">Lengan</a></li>
+      <li><a href="kaki.html">Kaki</a></li>
+      <li><a href="perut.html">Perut</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==================== BAGIAN 2: HERO / COVER ==================== -->
+  <header class="hero">
+    <!-- 
+      PENJELASAN:
+      <header> = tag untuk bagian KEPALA/KESAN PERTAMA halaman.
+      Biasanya isinya judul besar, slogan, gambar catchy.
+      Bedanya <header> vs <head>:
+      - <head> = amplop (nggak kelihatan).
+      - <header> = spanduk besar di depan toko (kelihatan jelas).
+      class="hero" = nama julukan untuk CSS (hero = pahlawan/utama).
+    -->
+
+    <h1>Panduan Lengkap Latihan Otot</h1>
+    <!-- 
+      PENJELASAN:
+      <h1> = "Heading 1" (Judul Utama). Ini judul PALING PENTING di halaman.
+      Aturan: 1 halaman cuma boleh punya 1 <h1>.
+      H1 juga dibaca Google untuk SEO (muncul di pencarian Google).
+      Font-nya paling besar dan paling tebal secara default.
+    -->
+
+    <p class="subtitle">Koran Digital untuk Pemula &mdash; Pelajari cara kerja otot dan gerakan latihan yang tepat.</p>
+    <!-- 
+      PENJELASAN:
+      <p> = "paragraph" (paragraf/teks biasa).
+      class="subtitle" = label CSS untuk teks penjelasan di bawah judul.
+      &mdash; = kode HTML untuk membuat garis panjang (—). 
+      Kenapa nggak langsung ketik "—"? Karena kadang browser salah baca.
+    -->
+
+    <a href="#daftar-otot" class="btn-primary">Mulai Belajar ↓</a>
+    <!-- 
+      PENJELASAN:
+      Ini tombol CTA (Call To Action) pakai tag <a> (link).
+      href="#daftar-otot" = link ke bagian dalam HALAMAN YANG SAMA.
+      Tanda pagar (#) artinya: "cari elemen dengan id='daftar-otot' di file ini, lalu scroll ke sana".
+      class="btn-primary" = class CSS untuk tombol utama (biasanya warna mencolok).
+      ↓ = panah bawah (emoji Unicode).
+    -->
+  </header>
+
+  <!-- ==================== BAGIAN 3: DAFTAR OTOT (KARTU) ==================== -->
+  <main class="container" id="daftar-otot">
+    <!-- 
+      PENJELASAN:
+      <main> = tag untuk KONTEN UTAMA halaman. 
+      Bedanya <main> vs <body>:
+      - <body> = semua yang kelihatan (termasuk menu, footer).
+      - <main> = hanya ISI UTAMA (nggak termasuk menu & footer).
+      class="container" = class CSS untuk membatasi lebar konten (biar nggak terlalu lebar di monitor besar).
+      id="daftar-otot" = ID untuk dituju oleh tombol "Mulai Belajar" di atas (href="#daftar-otot").
+    -->
+
+    <h2>Pilih Bagian Otot</h2>
+    <!-- 
+      PENJELASAN:
+      <h2> = "Heading 2" (Sub-judul). Levelnya di bawah <h1>.
+      Urutan heading: h1 > h2 > h3 > h4 > h5 > h6.
+      Jangan loncat! Kalau pakai h2, sebelumnya harus ada h1. Kalau pakai h3, sebelumnya harus ada h2.
+      Ini aturan untuk SEO dan pembaca layar (bagi tunanetra).
+    -->
+
+    <p class="section-desc">Klik salah satu kartu di bawah untuk membaca panduan lengkap cara kerja otot dan gerakan latihannya.</p>
+    <!-- 
+      PENJELASAN:
+      class="section-desc" = "section description" (penjelasan bagian).
+      Nama class bebas, yang penting konsisten. Di CSS nanti kita hias .section-desc.
+    -->
+
+    <div class="grid-otot">
+      <!-- 
+        PENJELASAN:
+        class="grid-otot" = grid (kisi) untuk menampilkan kartu-kartu otot.
+        Di CSS nanti, kita akan pakai "display: grid" supaya kartu-kartu rapi berjejer.
+      -->
+
+      <!-- KARTU 1: DADA -->
+      <a href="dada.html" class="card-otot">
+        <!-- 
+          PENJELASAN:
+          Kartu ini dibungkus <a> (link) JUGA, jadi SELURUH kartu bisa diklik.
+          Biasanya link cuma di teks, tapi di HTML5, link bisa membungkus div/card besar.
+        -->
+        <div class="card-icon">🏋️</div>
+        <!-- 
+          PENJELASAN:
+          class="card-icon" = kotak untuk emoji/icon di atas kartu.
+        -->
+        <h3>Otot Dada</h3>
+        <!-- 
+          PENJELASAN:
+          <h3> = Heading 3. Levelnya di bawah h2.
+          Karena sebelumnya ada h2 "Pilih Bagian Otot", sekarang boleh pakai h3.
+        -->
+        <p>Pectoralis Major & Minor. Fungsi mendorong dan memeluk.</p>
+        <span class="card-link">Baca Panduan →</span>
+        <!-- 
+          PENJELASAN:
+          <span> dengan class "card-link" = teks kecil di bawah kartu yang beri tahu user "ini bisa diklik".
+        -->
+      </a>
+
+      <!-- KARTU 2: PUNGGUNG -->
+      <a href="punggung.html" class="card-otot">
+        <div class="card-icon">🚣</div>
+        <h3>Otot Punggung</h3>
+        <p>Latissimus Dorsi, Trapezius, Rhomboid. Fungsi menarik.</p>
+        <span class="card-link">Baca Panduan →</span>
+      </a>
+
+      <!-- KARTU 3: BAHU -->
+      <a href="bahu.html" class="card-otot">
+        <div class="card-icon">🤷</div>
+        <h3>Otot Bahu</h3>
+        <p>Deltoid (Anterior, Lateral, Posterior). Fungsi mengangkat.</p>
+        <span class="card-link">Baca Panduan →</span>
+      </a>
+
+      <!-- KARTU 4: LENGAN -->
+      <a href="lengan.html" class="card-otot">
+        <div class="card-icon">💪</div>
+        <h3>Otot Lengan</h3>
+        <p>Biceps & Triceps. Fungsi menekuk dan meluruskan siku.</p>
+        <span class="card-link">Baca Panduan →</span>
+      </a>
+
+      <!-- KARTU 5: KAKI -->
+      <a href="kaki.html" class="card-otot">
+        <div class="card-icon">🦵</div>
+        <h3>Otot Kaki</h3>
+        <p>Quadriceps, Hamstring, Glutes, Calves. Fungsi jalan & lompat.</p>
+        <span class="card-link">Baca Panduan →</span>
+      </a>
+
+      <!-- KARTU 6: PERUT -->
+      <a href="perut.html" class="card-otot">
+        <div class="card-icon">🍫</div>
+        <h3>Otot Perut</h3>
+        <p>Rectus Abdominis, Obliques. Fungsi menstabilkan core.</p>
+        <span class="card-link">Baca Panduan →</span>
+      </a>
+    </div>
+  </main>
+
+  <!-- ==================== BAGIAN 4: FOOTER ==================== -->
+  <footer class="footer">
+    <!-- 
+      PENJELASAN:
+      <footer> = tag untuk bagian KAKI halaman.
+      Isinya biasanya: copyright, disclaimer, link sosmed, dll.
+      Biasanya tampilannya lebih kecil, warna lebih gelap.
+    -->
+    <p> GymPedia &mdash; Koran Digital Panduan Otot. Dibuat untuk pemula.</p>
+    <p><small>Disclaimer: Konsultasikan dengan dokter/dokter gigi sebelum memulai program latihan.</small></p>
+    <!-- 
+      PENJELASAN:
+      <small> = tag untuk teks KECIL (fine print).
+      Biasanya dipakai untuk disclaimer, catatan kaki, syarat & ketentuan.
+      Secara default, font-nya lebih kecil dari <p> biasa.
+    -->
+  </footer>
+
+  <!-- ==================== BAGIAN 5: JAVASCRIPT ==================== -->
+  <script src="js/script.js"></script>
+  <!-- 
+    PENJELASAN:
+    <script> = tag untuk menyambungkan file JAVASCRIPT.
+    src="js/script.js" = lokasi file JS (masuk folder "js", file "script.js").
+    Letaknya di PALING BAWAH sebelum </body> supaya:
+    1. HTML dan CSS sudah ke-load dulu (tampilan sudah muncul).
+    2. JavaScript baru jalan terakhir (ngatur interaksi).
+    Analogi: bangun rumah dulu, baru pasang saklar listrik.
+  -->
+</body>
+</html>

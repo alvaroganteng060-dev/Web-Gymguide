@@ -1,0 +1,1337 @@
+/* ============================================================
+   PENJELASAN PENTING TENTANG CSS:
+
+   CSS = Cascading Style Sheets (Lembar Gaya Berjenjang).
+   Fungsinya: MENGHIAS tampilan HTML. Warna, ukuran, posisi, jarak, animasi.
+
+   CARA BACA FILE INI:
+   - Tiap blok diawali dengan SELECTOR (nama target yang mau dihias).
+   - Di dalam kurung kurawal { } adalah DEKLARASI (perintah hiasannya).
+   - Format: property: value; (properti: nilai;)
+
+   CONTOH:
+   body {
+     background-color: white;  ← properti: nilai
+   }
+
+   "body" adalah SELECTOR (target: tag <body> di HTML).
+   "background-color" adalah PROPERTI (apa yang mau diubah).
+   "white" adalah NILAI (warnanya putih).
+   Titik koma (;) WAJIB di akhir tiap deklarasi!
+   ============================================================ */
+
+
+/* ============================================================
+   BAGIAN 1: RESET DASAR (CSS RESET)
+   ============================================================ */
+
+/* 
+  PENJELASAN SELECTOR "*":
+  Tanda bintang (*) artinya "SEMUA ELEMEN" di HTML.
+  Ini dipakai untuk menghapus pengaturan default browser yang berbeda-beda.
+  Setiap browser (Chrome, Firefox, Safari) punya pengaturan default sendiri.
+  Reset ini membuat semua browser tampil SERAGAM.
+*/
+*,
+*::before,
+*::after {
+  /* 
+    PENJELASAN box-sizing:
+    "border-box" artinya: lebar/tinggi elemen SUDAH TERMASUK padding dan border.
+    Tanpa ini, kalau lu kasih lebar 300px + padding 20px, total jadi 340px.
+    Dengan border-box, lebar 300px sudah termasuk padding 20px. Lebih mudah diatur!
+  */
+  box-sizing: border-box;
+
+  /* 
+    PENJELASAN margin & padding:
+    margin = jarak LUAR elemen (antara elemen dengan elemen lain).
+    padding = jarak DALAM elemen (antara tepi elemen dengan isinya).
+    Di-reset ke 0 supaya kita mulai dari kertas kosong.
+  */
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ============================================================
+   BAGIAN 2: VARIABEL WARNA (CUSTOM PROPERTIES)
+   ============================================================ */
+
+/* 
+  PENJELASAN :root:
+  :root = selektor khusus untuk elemen paling atas (tag <html>).
+  Di dalamnya kita bikin VARIABEL (custom properties) yang bisa dipakai berulang kali.
+  Manfaatnya: kalau mau ganti warna, cukub ganti di 1 tempat ini, semua ikut berubah.
+  Variabel CSS ditulis dengan awalan -- (dua tanda strip).
+*/
+:root {
+  /* WARNA UTAMA */
+  --warna-utama: #2563eb;        /* Biru elektrik. Dipakai untuk tombol, link aktif, judul. */
+  --warna-utama-gelap: #1d4ed8;  /* Versi lebih gelap dari biru utama. Untuk hover/tombol ditekan. */
+  --warna-utama-terang: #dbeafe; /* Versi sangat terang. Untuk background tipis. */
+
+  /* WARNA TEKS */
+  --teks-utama: #1f2937;         /* Abu-abu sangat gelap (hampir hitam). Untuk teks biasa. */
+  --teks-pudar: #6b7280;         /* Abu-abu medium. Untuk teks sekunder (subtitle, keterangan). */
+  --teks-terang: #ffffff;        /* Putih. Untuk teks di background gelap. */
+
+  /* WARNA BACKGROUND */
+  --bg-body: #f8fafc;            /* Abu-abu sangat tipis. Background halaman. */
+  --bg-kartu: #ffffff;           /* Putih. Background kartu/kotak. */
+  --bg-navbar: #ffffff;            /* Putih. Background navigasi atas. */
+  --bg-footer: #1f2937;            /* Abu gelap. Background footer. */
+
+  /* WARNA BADGE (LABEL LEVEL) */
+  --badge-pemula: #22c55e;       /* Hijau. Untuk level pemula. */
+  --badge-pemula-bg: #dcfce7;      /* Hijau sangat tipis. Background badge pemula. */
+  --badge-menengah: #f59e0b;      /* Oranye. Untuk level menengah. */
+  --badge-menengah-bg: #fef3c7;    /* Oranye sangat tipis. Background badge menengah. */
+  --badge-lanjut: #ef4444;         /* Merah. Untuk level lanjut. */
+  --badge-lanjut-bg: #fee2e2;      /* Merah sangat tipis. Background badge lanjut. */
+
+  /* WARNA LAINNYA */
+  --warna-garis: #e5e7eb;         /* Abu tipis. Untuk garis pembatas (border). */
+  --warna-bahaya: #dc2626;         /* Merah tua. Untuk peringatan/kesalahan. */
+  --warna-tips: #0ea5e9;           /* Biru muda. Untuk kotak tips. */
+  --warna-tips-bg: #e0f2fe;        /* Biru sangat tipis. Background kotak tips. */
+
+  /* UKURAN & JARAK */
+  --radius: 12px;                  /* Radius sudut (rounded corner). Semua sudut kartu dibulatkan 12px. */
+  --radius-kecil: 8px;             /* Radius kecil untuk tombol, badge, input. */
+  --bayangan: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* 
+    PENJELASAN bayangan:
+    Bayangan CSS ditulis: horizontal vertical blur spread color.
+    Di atas ada 2 bayangan yang ditumpuk (dipisah koma).
+    Ini membuat efek bayangan halus di bawah kartu (modern, elegan).
+  */
+  --bayangan-besar: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* TRANSISI (ANIMASI HALUS) */
+  --transisi: all 0.3s ease;
+  /* 
+    PENJELASAN transisi:
+    "all" = semua properti yang berubah akan dianimasikan.
+    "0.3s" = durasi animasi 0.3 detik (300 milidetik).
+    "ease" = jenis animasi (mulai pelan, cepat di tengah, pelan di akhir).
+    Contoh: tombol berubah warna nggak langsung "jedug", tapi perlahan 0.3 detik.
+  */
+}
+
+
+/* ============================================================
+   BAGIAN 3: TIPOGRAFI (FONT & TEKS)
+   ============================================================ */
+
+/* 
+  PENJELASAN body:
+  Selector "body" = menghias tag <body> di HTML.
+  Ini adalah fondasi tampilan: font, ukuran, warna dasar, jarak antar baris.
+*/
+body {
+  /* 
+    font-family = jenis huruf.
+    Kita kasih 3 pilihan: system-ui (font bawaan sistem), -apple-system (font bawaan Mac/iPhone), 
+    'Segoe UI' (font Windows), 'Roboto' (font Android), sans-serif (fallback terakhir: font tanpa kaki).
+    Browser akan mencoba font dari kiri ke kanan. Kalau nggak ada, pakai yang paling kanan.
+  */
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* 
+    font-size = ukuran huruf dasar.
+    1rem = 16px (default browser). 
+    Kita pakai rem (bukan px) supaya kalau user zoom browser, ukuran ikut membesar.
+    rem = relative to root (elemen <html>).
+  */
+  font-size: 1rem;
+
+  /* line-height = tinggi baris. 1.6 artinya 1.6x ukuran font.
+     Jadi kalau font 16px, tinggi baris = 25.6px.
+     Ini membuat teks nggak terlalu rapat dan mudah dibaca.
+  */
+  line-height: 1.6;
+
+  /* Warna teks dan background diambil dari variabel yang kita buat di :root */
+  color: var(--teks-utama);
+  background-color: var(--bg-body);
+}
+
+/* 
+  Heading (h1, h2, h3, h4, h5, h6):
+  Kita kasih line-height lebih kecil (1.2) karena heading biasanya pendek.
+  Juga kasih margin bawah supaya ada jarak dengan teks di bawahnya.
+*/
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  font-weight: 700; /* 700 = tebal (bold). 400 = normal. */
+  margin-bottom: 0.75rem;
+}
+
+/* Ukuran masing-masing heading */
+h1 { font-size: 2.5rem; }   /* 40px. Paling besar. Hanya untuk judul utama. */
+h2 { font-size: 2rem; }     /* 32px. Untuk judul bagian (section). */
+h3 { font-size: 1.5rem; }   /* 24px. Untuk sub-judul (nama gerakan, dll). */
+h4 { font-size: 1.25rem; }  /* 20px. Untuk judul kecil dalam kartu. */
+
+/* 
+  Paragraf:
+  margin-bottom memberi jarak antar paragraf.
+  Kalau nggak ada ini, paragraf akan menempel satu sama lain.
+*/
+p {
+  margin-bottom: 1rem;
+}
+
+/* 
+  Link (a):
+  color: inherit = "pakai warna yang sama dengan elemen induknya".
+  text-decoration: none = hapus garis bawah default pada link.
+  transition = animasi halus saat berubah warna.
+*/
+a {
+  color: var(--warna-utama);
+  text-decoration: none;
+  transition: var(--transisi);
+}
+
+/* 
+  Link saat di-hover (mouse diarahkan ke atasnya):
+  text-decoration: underline = kasih garis bawah.
+  color: var(--warna-utama-gelap) = ganti jadi warna lebih gelap.
+*/
+a:hover {
+  text-decoration: underline;
+  color: var(--warna-utama-gelap);
+}
+
+/* 
+  Gambar (img):
+  max-width: 100% = gambar NGGAK BOLEH lebih lebar dari kotak induknya.
+  height: auto = tinggi menyesuaikan proporsi asli (nggak gepeng).
+  display: block = hapus celah kecil di bawah gambar (bug default browser).
+*/
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* ============================================================
+   BAGIAN 4: KONTAINER (PEMBATAS LEBAR)
+   ============================================================ */
+
+/* 
+  .container = class untuk membatasi lebar konten.
+  max-width: 1200px = lebar MAKSIMAL 1200px. Kalau layar lebih lebar, tetap 1200px.
+  margin: 0 auto = jarak atas-bawah 0, kiri-kanan otomatis (auto).
+    "auto" di kiri-kanan artinya: browser akan membagi sisa ruang sama rata.
+    Hasilnya: konten di TENGAH layar!
+  padding: 0 1.5rem = jarak dalam kiri-kanan 1.5rem (24px). Supaya di HP nggak menempel tepi.
+*/
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+
+/* ============================================================
+   BAGIAN 5: NAVIGASI ATAS (NAVBAR)
+   ============================================================ */
+
+/* 
+  .navbar = navigasi bar.
+  display: flex = aktifkan Flexbox (sistem layout modern).
+    Flexbox membuat elemen di dalamnya bisa disejajarkan horizontal dengan MUDAH.
+  justify-content: space-between = elemen pertama di kiri, elemen terakhir di kanan, sisanya di tengah.
+  align-items: center = elemen disejajarkan VERTIKAL di tengah (nggak ada yang naik/turun).
+  padding: 1rem 1.5rem = jarak dalam atas-bawah 1rem, kiri-kanan 1.5rem.
+  background-color: putih.
+  box-shadow: kasih bayangan halus di bawah navbar.
+  position: sticky = navbar "menempel" di atas saat di-scroll.
+  top: 0 = menempel di posisi paling atas.
+  z-index: 100 = "lapisan" 100. Navbar di atas elemen lain (biasanya z-index default = 0 atau auto).
+*/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: var(--bg-navbar);
+  box-shadow: var(--bayangan);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* 
+  .logo = kotak judul/logo di kiri navbar.
+  font-size: 1.5rem = 24px.
+  font-weight: 700 = tebal.
+  color: var(--warna-utama) = biru.
+*/
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--warna-utama);
+}
+
+/* 
+  .logo span = teks di dalam logo ("GymPedia").
+  color: var(--teks-utama) = abu gelap (bukan biru, biar kontras).
+*/
+.logo span {
+  color: var(--teks-utama);
+}
+
+/* 
+  .menu-toggle = tombol "☰ Menu" untuk HP.
+  display: none = SEMBUNYIKAN tombol ini di layar besar (desktop).
+  Kita cuma tampilkan di HP (nanti di media query).
+  ...properti lainnya untuk styling tombol.
+*/
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--warna-garis);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-kecil);
+  cursor: pointer; /* cursor berubah jadi tangan saat di-hover */
+  font-size: 1rem;
+  color: var(--teks-utama);
+}
+
+/* 
+  .nav-links = daftar link menu (ul).
+  display: flex = tampilkan horizontal (sejajar).
+  list-style: none = hapus bullet point (titik-titik) default dari <ul>.
+  gap: 2rem = jarak antar item menu 2rem (32px).
+*/
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+/* 
+  .nav-links a = link di dalam menu.
+  color: var(--teks-pudar) = warna abu-abu (nggak aktif).
+  font-weight: 500 = sedikit tebal (medium).
+  padding: 0.5rem 0 = jarak dalam atas-bawah (untuk area klik lebih besar).
+*/
+.nav-links a {
+  color: var(--teks-pudar);
+  font-weight: 500;
+  padding: 0.5rem 0;
+  text-decoration: none;
+}
+
+/* 
+  .nav-links a:hover = link menu saat di-hover.
+  color: var(--warna-utama) = berubah jadi biru.
+*/
+.nav-links a:hover {
+  color: var(--warna-utama);
+  text-decoration: none;
+}
+
+/* 
+  .nav-links a.active = link yang sedang aktif (halaman yang dibuka).
+  color: var(--warna-utama) = biru.
+  border-bottom: 2px solid var(--warna-utama) = garis bawah biru (indikator aktif).
+*/
+.nav-links a.active {
+  color: var(--warna-utama);
+  border-bottom: 2px solid var(--warna-utama);
+}
+
+
+/* ============================================================
+   BAGIAN 6: HERO (HEADER BESAR HALAMAN DEPAN)
+   ============================================================ */
+
+/* 
+  .hero = header besar di index.html.
+  text-align: center = teks di tengah.
+  padding: 5rem 1.5rem = jarak dalam atas-bawah BESAR (80px), kiri-kanan 24px.
+  background: gradient = latar belakang GRADASI (perpaduan 2 warna).
+    linear-gradient(135deg, ...) = arah gradasi 135 derajat (dari kiri bawah ke kanan atas).
+    var(--warna-utama) = warna biru.
+    #1e40af = biru lebih gelap.
+  color: white = teks putih (kontras dengan background gelap).
+*/
+.hero {
+  text-align: center;
+  padding: 5rem 1.5rem;
+  background: linear-gradient(135deg, var(--warna-utama) 0%, #1e40af 100%);
+  color: var(--teks-terang);
+}
+
+/* 
+  .hero h1 = judul di dalam hero.
+  font-size: 3rem = 48px (lebih besar dari h1 biasa).
+  margin-bottom: 1rem = jarak bawah 16px.
+  text-shadow = bayangan halus pada teks (supaya lebih terbaca di background gradasi).
+*/
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 
+  .subtitle = teks penjelasan di bawah judul hero.
+  font-size: 1.25rem = 20px.
+  opacity: 0.9 = sedikit transparan (90% terlihat, 10% tembus pandang).
+    Ini membuat teks terlihat lebih "halus" dan nggak terlalu "nyerempet" judul.
+  max-width: 600px = batasi lebar maksimal supaya baris nggak terlalu panjang.
+  margin: 0 auto 2rem auto = tengah horizontal, jarak bawah 2rem.
+*/
+.hero .subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+}
+
+
+/* ============================================================
+   BAGIAN 7: TOMBOL (BUTTON)
+   ============================================================ */
+
+/* 
+  .btn-primary = tombol utama (CTA - Call To Action).
+  display: inline-block = elemen sebaris (inline) tapi bisa diatur ukuran & jarak (seperti block).
+  background-color: white = latar belakang putih.
+  color: var(--warna-utama) = teks biru.
+  padding: 0.875rem 2rem = jarak dalam (atas-bawah 14px, kiri-kanan 32px).
+  border-radius: var(--radius-kecil) = sudut membulat 8px.
+  font-weight: 600 = semi-bold (agak tebal).
+  text-decoration: none = hapus garis bawah (karena ini tag <a>).
+  box-shadow = bayangan halus.
+  transition = animasi halus saat hover.
+*/
+.btn-primary {
+  display: inline-block;
+  background-color: var(--teks-terang);
+  color: var(--warna-utama);
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius-kecil);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--bayangan);
+  transition: var(--transisi);
+}
+
+/* 
+  .btn-primary:hover = tombol saat mouse diarahkan ke atasnya.
+  transform: translateY(-2px) = geser ke ATAS 2 pixel (efek "mengambang").
+  box-shadow: bayangan lebih besar (efek lebih terangkat).
+  text-decoration: none = tetap nggak ada garis bawah.
+*/
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--bayangan-besar);
+  text-decoration: none;
+  color: var(--warna-utama-gelap);
+}
+
+
+/* ============================================================
+   BAGIAN 8: GRID OTOT (KARTU DI HALAMAN DEPAN)
+   ============================================================ */
+
+/* 
+  .section-desc = deskripsi di bawah judul section.
+  color: var(--teks-pudar) = abu-abu.
+  text-align: center = di tengah.
+  max-width: 700px = batasi lebar supaya mudah dibaca.
+  margin: 0 auto 3rem auto = tengah, jarak bawah 3rem.
+*/
+.section-desc {
+  color: var(--teks-pudar);
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+}
+
+/* 
+  .grid-otot = grid (kisi) untuk kartu-kartu otot.
+  display: grid = aktifkan CSS Grid (sistem layout 2D: baris & kolom).
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    - repeat = ulang.
+    - auto-fit = otomatis sesuaikan jumlah kolom dengan lebar layar.
+    - minmax(300px, 1fr) = tiap kolom minimal 300px, maksimal 1fr (sisa ruang).
+    Hasilnya: di layar lebar = 3 kolom, di layar sedang = 2 kolom, di HP = 1 kolom.
+  gap: 1.5rem = jarak antar kartu 24px.
+  margin-top: 3rem = jarak atas 48px (dari judul).
+*/
+.grid-otot {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+/* 
+  .card-otot = kartu otot individual.
+  background-color: white.
+  padding: 2rem = jarak dalam 32px.
+  border-radius: var(--radius) = sudut membulat 12px.
+  text-align: center = teks & icon di tengah.
+  text-decoration: none = hapus garis bawah (karena ini tag <a>).
+  color: var(--teks-utama) = teks abu gelap.
+  box-shadow = bayangan halus.
+  transition = animasi halus.
+  border: 1px solid var(--warna-garis) = garis tipis abu-abu di tepi.
+*/
+.card-otot {
+  background-color: var(--bg-kartu);
+  padding: 2rem;
+  border-radius: var(--radius);
+  text-align: center;
+  text-decoration: none;
+  color: var(--teks-utama);
+  box-shadow: var(--bayangan);
+  transition: var(--transisi);
+  border: 1px solid var(--warna-garis);
+  display: block; /* supaya seluruh kartu bisa diklik */
+}
+
+/* 
+  .card-otot:hover = kartu saat di-hover.
+  transform: translateY(-5px) = naik 5px (efek melayang).
+  box-shadow: bayangan lebih besar.
+  border-color: var(--warna-utama) = garis tepi berubah jadi biru.
+*/
+.card-otot:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--bayangan-besar);
+  border-color: var(--warna-utama);
+  text-decoration: none;
+  color: var(--teks-utama);
+}
+
+/* 
+  .card-icon = emoji/icon di atas kartu.
+  font-size: 3rem = 48px (besar).
+  margin-bottom: 1rem = jarak bawah 16px.
+*/
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* 
+  .card-otot h3 = judul di dalam kartu.
+  color: var(--warna-utama) = biru.
+  margin-bottom: 0.5rem = jarak bawah 8px.
+*/
+.card-otot h3 {
+  color: var(--warna-utama);
+  margin-bottom: 0.5rem;
+}
+
+/* 
+  .card-otot p = teks deskripsi di kartu.
+  color: var(--teks-pudar) = abu-abu.
+  font-size: 0.95rem = sedikit lebih kecil dari normal.
+  margin-bottom: 1.5rem = jarak bawah 24px.
+*/
+.card-otot p {
+  color: var(--teks-pudar);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 
+  .card-link = teks "Baca Panduan →" di bawah kartu.
+  color: var(--warna-utama) = biru.
+  font-weight: 600 = semi-bold.
+  font-size: 0.9rem = sedikit kecil.
+*/
+.card-link {
+  color: var(--warna-utama);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+
+/* ============================================================
+   BAGIAN 9: FOOTER
+   ============================================================ */
+
+/* 
+  .footer = bagian kaki halaman.
+  background-color: var(--bg-footer) = abu gelap.
+  color: var(--teks-terang) = putih.
+  text-align: center = teks di tengah.
+  padding: 2rem 1.5rem = jarak dalam.
+  margin-top: 4rem = jarak atas 64px (dari konten terakhir).
+*/
+.footer {
+  background-color: var(--bg-footer);
+  color: var(--teks-terang);
+  text-align: center;
+  padding: 2rem 1.5rem;
+  margin-top: 4rem;
+}
+
+/* 
+  .footer p = paragraf di footer.
+  margin-bottom: 0.5rem = jarak bawah kecil.
+  opacity: 0.8 = sedikit transparan (lembut).
+*/
+.footer p {
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+/* 
+  .footer a = link di footer.
+  color: var(--warna-utama-terang) = biru sangat terang (supaya kelihatan di background gelap).
+*/
+.footer a {
+  color: var(--warna-utama-terang);
+}
+
+
+/* ============================================================
+   BAGIAN 10: HALAMAN DETAIL OTOT (dada.html, dll)
+   ============================================================ */
+
+/* 
+  .page-header = header untuk halaman detail otot.
+  background-color: var(--warna-utama-terang) = biru sangat tipis.
+  padding: 3rem 1.5rem = jarak dalam atas-bawah 48px.
+  text-align: center = tengah.
+  border-bottom: 1px solid var(--warna-garis) = garis pembatas bawah.
+*/
+.page-header {
+  background-color: var(--warna-utama-terang);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--warna-garis);
+}
+
+/* 
+  .page-header h1 = judul di page-header.
+  color: var(--warna-utama-gelap) = biru gelap.
+  margin-bottom: 0.5rem = jarak bawah kecil.
+*/
+.page-header h1 {
+  color: var(--warna-utama-gelap);
+  margin-bottom: 0.5rem;
+}
+
+/* 
+  .latin = nama latin otot (di dalam h1).
+  font-weight: 400 = normal (nggak tebal).
+  font-style: italic = miring.
+  color: var(--teks-pudar) = abu-abu.
+  font-size: 1.5rem = lebih kecil dari judul utama.
+*/
+.latin {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--teks-pudar);
+  font-size: 1.5rem;
+}
+
+/* 
+  .breadcrumb = jejak navigasi (Beranda > Dada).
+  font-size: 0.9rem = sedikit kecil.
+  color: var(--teks-pudar) = abu-abu.
+  margin-top: 1rem = jarak atas 16px.
+*/
+.breadcrumb {
+  font-size: 0.9rem;
+  color: var(--teks-pudar);
+  margin-top: 1rem;
+}
+
+/* 
+  .breadcrumb a = link di breadcrumb.
+  color: var(--warna-utama) = biru.
+*/
+.breadcrumb a {
+  color: var(--warna-utama);
+}
+
+/* 
+  .breadcrumb span = teks halaman aktif di breadcrumb (tanpa link).
+  color: var(--teks-utama) = abu gelap (lebih gelap dari link, menandakan "di sini").
+  font-weight: 500 = sedikit tebal.
+*/
+.breadcrumb span {
+  color: var(--teks-utama);
+  font-weight: 500;
+}
+
+
+/* ============================================================
+   BAGIAN 11: SECTION CARA KERJA OTOT
+   ============================================================ */
+
+/* 
+  section = jarak antar section/bagian.
+  padding: 3rem 0 = jarak dalam atas-bawah 48px, kiri-kanan 0 (karena sudah diatur .container).
+  border-bottom: 1px solid var(--warna-garis) = garis pembatas antar section.
+*/
+section {
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--warna-garis);
+}
+
+/* Section terakhir nggak perlu garis bawah */
+section:last-of-type {
+  border-bottom: none;
+}
+
+/* 
+  .anatomi-box = kotak penjelasan anatomi.
+  background-color: var(--bg-kartu) = putih.
+  padding: 2rem = jarak dalam 32px.
+  border-radius: var(--radius) = sudut membulat.
+  margin-bottom: 2rem = jarak bawah 32px.
+  border-left: 4px solid var(--warna-utama) = garis biru di kiri (visual cue).
+*/
+.anatomi-box {
+  background-color: var(--bg-kartu);
+  padding: 2rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--warna-utama);
+  box-shadow: var(--bayangan);
+}
+
+/* 
+  .anatomi-box h3 = sub-judul di dalam kotak anatomi.
+  color: var(--warna-utama-gelap) = biru gelap.
+  margin-top: 1.5rem = jarak atas 24px (supaya nggak nempel ke elemen sebelumnya).
+  margin-bottom: 1rem = jarak bawah 16px.
+*/
+.anatomi-box h3 {
+  color: var(--warna-utama-gelap);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 
+  .anatomi-box h3:first-child = h3 PERTAMA di dalam anatomi-box.
+  margin-top: 0 = hapus jarak atas (karena sudah ada padding dari kotak).
+*/
+.anatomi-box h3:first-child {
+  margin-top: 0;
+}
+
+/* 
+  .anatomi-box ul, ol = list di dalam kotak anatomi.
+  padding-left: 1.5rem = indentasi (geser ke kanan) 24px.
+  margin-bottom: 1rem = jarak bawah.
+*/
+.anatomi-box ul,
+.anatomi-box ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 
+  .anatomi-box li = tiap item list.
+  margin-bottom: 0.5rem = jarak bawah antar item 8px.
+*/
+.anatomi-box li {
+  margin-bottom: 0.5rem;
+}
+
+/* 
+  .anatomi-gambar = figure untuk gambar anatomi.
+  text-align: center = gambar & caption di tengah.
+  margin: 2rem auto = tengah horizontal, jarak atas-bawah 32px.
+  max-width: 500px = batasi lebar gambar supaya nggak terlalu besar.
+*/
+.anatomi-gambar {
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 500px;
+}
+
+/* 
+  .anatomi-gambar img = gambar di dalam figure.
+  border-radius: var(--radius) = sudut membulat.
+  box-shadow = bayangan halus.
+  margin: 0 auto = tengah horizontal.
+*/
+.anatomi-gambar img {
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+  margin: 0 auto;
+}
+
+/* 
+  figcaption = keterangan gambar.
+  font-size: 0.85rem = sedikit kecil.
+  color: var(--teks-pudar) = abu-abu.
+  margin-top: 0.75rem = jarak atas 12px.
+  font-style: italic = miring.
+*/
+figcaption {
+  font-size: 0.85rem;
+  color: var(--teks-pudar);
+  margin-top: 0.75rem;
+  font-style: italic;
+}
+
+
+/* ============================================================
+   BAGIAN 12: TABEL GERAKAN
+   ============================================================ */
+
+/* 
+  .table-wrapper = pembungkus tabel.
+  overflow-x: auto = kalau tabel terlalu lebar, wrapper ini bisa di-scroll horizontal.
+  border-radius: var(--radius) = sudut membulat.
+  box-shadow = bayangan halus.
+  margin-top: 1.5rem = jarak atas 24px.
+*/
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+  margin-top: 1.5rem;
+}
+
+/* 
+  .tabel-gerakan = tabel itu sendiri.
+  width: 100% = lebar penuh (mengisi wrapper).
+  border-collapse: collapse = hapus jarak antar sel (border menyatu).
+    Kalau pakai "separate", antar sel ada celah kecil.
+  background-color: var(--bg-kartu) = putih.
+*/
+.tabel-gerakan {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-kartu);
+}
+
+/* 
+  .tabel-gerakan thead = kepala tabel (baris judul kolom).
+  background-color: var(--warna-utama) = biru.
+  color: white = teks putih.
+*/
+.tabel-gerakan thead {
+  background-color: var(--warna-utama);
+  color: var(--teks-terang);
+}
+
+/* 
+  .tabel-gerakan th = sel judul kolom.
+  padding: 1rem = jarak dalam 16px.
+  text-align: left = teks rata kiri.
+  font-weight: 600 = semi-bold.
+  text-transform: uppercase = huruf KAPITAL SEMUA.
+  font-size: 0.85rem = sedikit kecil.
+  letter-spacing: 0.05em = jarak antar huruf sedikit lebar (lebih elegan).
+*/
+.tabel-gerakan th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+/* 
+  .tabel-gerakan td = sel data biasa.
+  padding: 1rem = jarak dalam 16px.
+  border-bottom: 1px solid var(--warna-garis) = garis bawah tipis antar baris.
+*/
+.tabel-gerakan td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--warna-garis);
+}
+
+/* 
+  .tabel-gerakan tbody tr:hover = baris tabel saat di-hover.
+  background-color: var(--warna-utama-terang) = biru sangat tipis.
+  transition = animasi halus.
+  cursor: pointer = cursor berubah jadi tangan (meskipun baris nggak diklik, tapi link di dalamnya bisa).
+*/
+.tabel-gerakan tbody tr:hover {
+  background-color: var(--warna-utama-terang);
+  transition: var(--transisi);
+  cursor: pointer;
+}
+
+/* 
+  .tabel-gerakan a = link di dalam tabel (nama gerakan).
+  font-weight: 500 = medium.
+  color: var(--warna-utama) = biru.
+*/
+.tabel-gerakan a {
+  font-weight: 500;
+  color: var(--warna-utama);
+}
+
+
+/* ============================================================
+   BAGIAN 13: BADGE (LABEL LEVEL)
+   ============================================================ */
+
+/* 
+  .badge = dasar label kecil.
+  display: inline-block = sebaris tapi bisa diatur ukurannya.
+  padding: 0.25rem 0.75rem = jarak dalam kecil (atas-bawah 4px, kiri-kanan 12px).
+  border-radius: 9999px = sudut sangat membulat (bentuk pil/obat).
+  font-size: 0.75rem = 12px (kecil).
+  font-weight: 600 = semi-bold.
+  text-transform: uppercase = huruf kapital semua.
+  letter-spacing: 0.05em = jarak huruf lebar.
+*/
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* 
+  .badge.pemula = badge khusus level pemula.
+  background-color: hijau sangat tipis.
+  color: hijau.
+*/
+.badge.pemula {
+  background-color: var(--badge-pemula-bg);
+  color: var(--badge-pemula);
+}
+
+/* Badge menengah */
+.badge.menengah {
+  background-color: var(--badge-menengah-bg);
+  color: var(--badge-menengah);
+}
+
+/* Badge lanjut */
+.badge.lanjut {
+  background-color: var(--badge-lanjut-bg);
+  color: var(--badge-lanjut);
+}
+
+
+/* ============================================================
+   BAGIAN 14: DETAIL CARD (KOTAK DETAIL TIAP GERAKAN)
+   ============================================================ */
+
+/* 
+  .detail-card = kotak besar untuk 1 gerakan.
+  background-color: white.
+  border-radius: var(--radius) = sudut membulat 12px.
+  box-shadow = bayangan halus.
+  margin-bottom: 2.5rem = jarak bawah antar kartu 40px.
+  overflow: hidden = sembunyikan apa pun yang keluar dari kotak (supaya sudut membulat tetap rapi).
+  border: 1px solid var(--warna-garis) = garis tipis.
+*/
+.detail-card {
+  background-color: var(--bg-kartu);
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  border: 1px solid var(--warna-garis);
+}
+
+/* 
+  .detail-header = kepala kartu (judul gerakan + badge).
+  display: flex = Flexbox.
+  justify-content: space-between = judul di kiri, badge di kanan.
+  align-items: center = tengah vertikal.
+  padding: 1.5rem = jarak dalam 24px.
+  background-color: var(--warna-utama-terang) = biru sangat tipis.
+  border-bottom: 1px solid var(--warna-garis) = garis pembatas.
+*/
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--warna-utama-terang);
+  border-bottom: 1px solid var(--warna-garis);
+  flex-wrap: wrap; /* kalau layar sempit, badge turun ke bawah */
+  gap: 0.5rem; /* jarak antar elemen kalau wrap */
+}
+
+/* 
+  .detail-header h3 = judul gerakan di header kartu.
+  margin-bottom: 0 = hapus margin default (karena sudah diatur padding).
+  color: var(--warna-utama-gelap) = biru gelap.
+*/
+.detail-header h3 {
+  margin-bottom: 0;
+  color: var(--warna-utama-gelap);
+}
+
+/* 
+  .detail-grid = grid 2 kolom untuk gambar (kiri) dan teks (kanan).
+  display: grid = aktifkan Grid.
+  grid-template-columns: 1fr 2fr = kolom kiri 1 bagian, kolom kanan 2 bagian (kanan lebih lebar).
+  gap: 2rem = jarak antar kolom 32px.
+  padding: 2rem = jarak dalam 32px.
+*/
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* 
+  .detail-gambar = kotak gambar di kiri.
+  text-align: center = gambar & caption di tengah.
+*/
+.detail-gambar {
+  text-align: center;
+}
+
+/* 
+  .detail-gambar img = gambar ilustrasi gerakan.
+  border-radius: var(--radius-kecil) = sudut membulat 8px.
+  box-shadow = bayangan halus.
+  margin-bottom: 1rem = jarak bawah 16px.
+*/
+.detail-gambar img {
+  border-radius: var(--radius-kecil);
+  box-shadow: var(--bayangan);
+  margin-bottom: 1rem;
+}
+
+/* 
+  .gambar-caption = keterangan di bawah gambar gerakan.
+  font-size: 0.85rem = kecil.
+  color: var(--teks-pudar) = abu-abu.
+  font-style: italic = miring.
+*/
+.gambar-caption {
+  font-size: 0.85rem;
+  color: var(--teks-pudar);
+  font-style: italic;
+}
+
+/* 
+  .detail-isi = kotak teks di kanan.
+*/
+.detail-isi {
+}
+
+/* 
+  .detail-isi h4 = sub-judul dalam kartu (Target Otot, Cara Melakukan, dll).
+  color: var(--warna-utama-gelap) = biru gelap.
+  margin-top: 1.5rem = jarak atas 24px.
+  margin-bottom: 0.75rem = jarak bawah 12px.
+  font-size: 1.1rem = sedikit lebih besar dari normal.
+*/
+.detail-isi h4 {
+  color: var(--warna-utama-gelap);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+/* h4 pertama nggak perlu margin atas */
+.detail-isi h4:first-child {
+  margin-top: 0;
+}
+
+/* 
+  .langkah = ordered list cara melakukan.
+  padding-left: 1.5rem = indentasi.
+  margin-bottom: 1rem = jarak bawah.
+*/
+.langkah {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 
+  .langkah li = tiap langkah.
+  margin-bottom: 0.75rem = jarak bawah antar langkah 12px.
+*/
+.langkah li {
+  margin-bottom: 0.75rem;
+}
+
+/* 
+  .kesalahan = unordered list kesalahan umum.
+  padding-left: 1.5rem = indentasi.
+  margin-bottom: 1rem = jarak bawah.
+*/
+.kesalahan {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 
+  .kesalahan li = tiap kesalahan.
+  color: var(--warna-bahaya) = merah tua (visual cue: ini salah!).
+  margin-bottom: 0.5rem = jarak bawah 8px.
+*/
+.kesalahan li {
+  color: var(--warna-bahaya);
+  margin-bottom: 0.5rem;
+}
+
+/* 
+  .tips-box = kotak khusus untuk tips.
+  background-color: var(--warna-tips-bg) = biru sangat tipis.
+  border-left: 4px solid var(--warna-tips) = garis biru muda di kiri.
+  padding: 1rem 1.5rem = jarak dalam.
+  border-radius: 0 var(--radius-kecil) var(--radius-kecil) 0;
+    - 0 = sudut kiri atas & kiri bawah NGGAK membulat (karena sudah ada garis biru).
+    - var(--radius-kecil) = sudut kanan atas & kanan bawah membulat.
+  margin-bottom: 1rem = jarak bawah.
+*/
+.tips-box {
+  background-color: var(--warna-tips-bg);
+  border-left: 4px solid var(--warna-tips);
+  padding: 1rem 1.5rem;
+  border-radius: 0 var(--radius-kecil) var(--radius-kecil) 0;
+  margin-bottom: 1rem;
+}
+
+/* 
+  .tips-box p = paragraf di dalam kotak tips.
+  margin-bottom: 0 = hapus margin bawah (karena sudah ada padding dari kotak).
+  color: var(--warna-utama-gelap) = biru gelap.
+*/
+.tips-box p {
+  margin-bottom: 0;
+  color: var(--warna-utama-gelap);
+}
+
+
+/* ============================================================
+   BAGIAN 15: NAVIGASI ANTAR HALAMAN OTOT
+   ============================================================ */
+
+/* 
+  .section-navigasi = bagian navigasi "Sebelumnya/Selanjutnya".
+  text-align: center = tengah.
+  padding: 2rem 0 = jarak dalam.
+*/
+.section-navigasi {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* 
+  .nav-otot = kotak berisi 2 link navigasi.
+  display: flex = Flexbox.
+  justify-content: center = tengah horizontal.
+  gap: 1.5rem = jarak antar link 24px.
+  margin-top: 1.5rem = jarak atas.
+  flex-wrap: wrap = kalau layar sempit, link turun ke bawah.
+*/
+.nav-otot {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* 
+  .nav-prev, .nav-next = tombol navigasi.
+  display: inline-block = sebaris tapi bisa diatur ukuran.
+  padding: 0.75rem 1.5rem = jarak dalam.
+  background-color: var(--bg-kartu) = putih.
+  border: 1px solid var(--warna-garis) = garis abu-abu.
+  border-radius: var(--radius-kecil) = sudut membulat.
+  color: var(--teks-utama) = abu gelap.
+  font-weight: 500 = medium.
+  transition = animasi halus.
+  text-decoration: none = hapus garis bawah.
+*/
+.nav-prev,
+.nav-next {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--bg-kartu);
+  border: 1px solid var(--warna-garis);
+  border-radius: var(--radius-kecil);
+  color: var(--teks-utama);
+  font-weight: 500;
+  transition: var(--transisi);
+  text-decoration: none;
+}
+
+/* Hover navigasi */
+.nav-prev:hover,
+.nav-next:hover {
+  background-color: var(--warna-utama);
+  color: var(--teks-terang);
+  border-color: var(--warna-utama);
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: var(--bayangan);
+}
+
+
+/* ============================================================
+   BAGIAN 16: RESPONSIF (MEDIA QUERY UNTUK HP)
+   ============================================================ */
+
+/* 
+  @media = aturan khusus untuk UKURAN LAYAR TERTENTU.
+  (max-width: 768px) = aturan ini hanya berlaku kalau lebar layar MAKSIMAL 768px (HP & tablet kecil).
+  Di dalam @media, kita menimpa (override) beberapa pengaturan di atas supaya tampilan enak di HP.
+*/
+@media (max-width: 768px) {
+  /* 
+    .menu-toggle = tombol "☰ Menu".
+    display: block = TAMPILKAN tombol ini (di desktop tadi display: none).
+  */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* 
+    .nav-links = daftar menu.
+    display: none = SEMBUNYIKAN menu secara default (nanti JavaScript yang tampilkan).
+    position: absolute = posisi bebas (nggak mengganggu elemen lain).
+    top: 100% = tepat di bawah navbar (100% tinggi navbar).
+    left: 0 = mulai dari kiri.
+    right: 0 = sampai kanan (lebar penuh).
+    background-color: white = latar putih.
+    flex-direction: column = tampilkan VERTIKAL (bukan horizontal).
+    padding: 1rem = jarak dalam.
+    box-shadow = bayangan di bawah menu.
+    gap: 0 = hapus gap horizontal, karena sekarang vertikal.
+    border-top: 1px solid var(--warna-garis) = garis pembatas atas.
+  */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-navbar);
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: var(--bayangan);
+    gap: 0;
+    border-top: 1px solid var(--warna-garis);
+  }
+
+  /* 
+    .nav-links.active = class yang ditambahkan JavaScript saat tombol Menu diklik.
+    display: flex = TAMPILKAN menu (dari yang tadi none).
+  */
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* 
+    .nav-links li = tiap item menu di HP.
+    border-bottom: 1px solid var(--warna-garis) = garis pembatas antar item.
+  */
+  .nav-links li {
+    border-bottom: 1px solid var(--warna-garis);
+  }
+
+  /* 
+    .nav-links li:last-child = item TERAKHIR.
+    border-bottom: none = hapus garis bawah (biar nggak ada garis dobel di bawah).
+  */
+  .nav-links li:last-child {
+    border-bottom: none;
+  }
+
+  /* 
+    .nav-links a = link di menu HP.
+    display: block = tampilkan sebagai blok (bisa diklik di seluruh baris).
+    padding: 0.75rem 0 = jarak dalam atas-bawah.
+  */
+  .nav-links a {
+    display: block;
+    padding: 0.75rem 0;
+  }
+
+  /* Hero lebih kecil di HP */
+  .hero {
+    padding: 3rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem; /* lebih kecil dari 3rem */
+  }
+
+  .hero .subtitle {
+    font-size: 1rem;
+  }
+
+  /* Grid otot jadi 1 kolom di HP (sudah otomatis karena minmax, tapi kita pastikan) */
+  .grid-otot {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Detail grid jadi 1 kolom di HP (gambar di atas, teks di bawah) */
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  /* Page header lebih kecil */
+  .page-header {
+    padding: 2rem 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .latin {
+    font-size: 1.1rem;
+  }
+
+  /* Tabel: padding lebih kecil */
+  .tabel-gerakan th,
+  .tabel-gerakan td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  /* Navigasi antar halaman */
+  .nav-otot {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-prev,
+  .nav-next {
+    width: 100%; /* lebar penuh di HP */
+    text-align: center;
+  }
+}
+
+
+/* ============================================================
+   BAGIAN 17: SMOOTH SCROLL (SCROLL HALUS)
+   ============================================================ */
+
+/* 
+  html = elemen <html>.
+  scroll-behavior: smooth = saat klik link dengan # (contoh: href="#gerakan-1"), 
+    browser akan scroll dengan HALUS (nggak langsung "jedug" ke bawah).
+  Ini pengaturan global, cukup 1 baris.
+*/
+html {
+  scroll-behavior: smooth;
+}
